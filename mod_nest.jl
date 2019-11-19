@@ -46,11 +46,14 @@ edgelist_T
 check_uniques2 = [in(new_id2, old_ids2) for new_id2 in edgelist_T.PreyTSN[prey_indexes]]
 filter(isone, check_uniques2)
 
+####Marie testing
+
+
 edgelist_T
 
 # convert "string" to "integer"
-edgelist_T.PredTSN = parse.(Int64, edgelist_T.PredTSN)
-edgelist_T.PreyTSN = parse.(Int64, edgelist_T.PreyTSN)
+# edgelist_T.PredTSN = parse.(Int64, edgelist_T.PredTSN)
+# edgelist_T.PreyTSN = parse.(Int64, edgelist_T.PreyTSN)
 
 #create vertices
 G = Graph()
@@ -83,15 +86,34 @@ add_edge!(G, 93294, 12322)
 
 gplot(G, nodelabel=1:nv(G), edgelabel=1:ne(G))
 
+G = Graph()
+add_vertices!(G, 6)
+add_edge!(G, 1, 2)
+add_edge!(G, 1, 3)
+add_edge!(G, 4, 3)
+add_edge!(G, 4, 5)
+add_edge!(G, 5, 2)
+
+gplot(G, nodelabel=1:nv(G), edgelabel=1:ne(G))
+
+
 ##test Change IDs to smaller increments starting at 1
 df_test = DataFrame(A = [93294, 93294, 70395, 92283, 69731], B = [10824, 11334, 11334, 11334, 12322])
-dict = Dict(93294=>1, 70395 => 2, 92283 => 3, 69731 => 4, 10824 => 5, 11334 => 6, 12322 => 7)
+# Sort by ID
+sort!(df_test, :A)
+# Get unique IDs
+unique_ids = unique(df_test.A)
+# Create Dict where id => newid
+id_dict = Dict(id => indexin(id, unique_ids) for id in df_test.A)
+# Add new ids in dataframe
+df_test.newcol = [id_dict[id] for id in df_test.A]
 
-##Test add_edge function 
+df_test
+
+##Test add_edge function
 df_simple = DataFrame(C = [1,1,2,3], D = [3,4,4,5])
-
-df_simple[:E] = add_edge!(G, df_simple.C, df_simple.D)
-
+#add new column with edge assignment ?? DOESNT WORK :(
+# df_simple[:E] = add_edge!(G, df_simple.C, df_simple.D)
 #try to assign edge between pairs of vertices
 for m in 1:length(df_simple)
     for n in 1:nrow(df_simple)
@@ -103,9 +125,3 @@ end
 df_copy = copy(df_test)
 unique(df_test.A) .= 1:4
 df_test.A .= 1:nrow(df_copy)
-
-if(people were good at presentations)
-    I(would enjoy this class)
-
-Else(makes me wanna sleep)
-    action(sleeping in class)
