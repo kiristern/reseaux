@@ -27,7 +27,7 @@ edgelist_T.PredTSN == "102" #manually check if in original df
 # pred_indexes = startswith.(edgelist_T.PredTSN, "san")
 #
 # # remove the "san" from the dataframe itself
-# edgelist_T.PredTSN = replace.(edgelist_T.PredTSN, "san" .=> "")
+ edgelist_T.PredTSN = replace.(edgelist_T.PredTSN, "san" .=> "")
 #
 # #view unique preyIDs without san (make sure they are not repeated in original)
 # check_uniques = [in(new_id, old_ids) for new_id in edgelist_T.PredTSN[pred_indexes]]
@@ -46,3 +46,7 @@ check_uniques2 = [in(new_id2, old_ids2) for new_id2 in edgelist_T.PreyTSN[prey_i
 filter(isone, check_uniques2)
 
 edgelist_T
+
+# convert "string" to "integer"
+edgelist_T.PredTSN = parse.(Int64, edgelist_T.PredTSN)
+edgelist_T.PreyTSN = parse.(Int64, edgelist_T.PreyTSN)

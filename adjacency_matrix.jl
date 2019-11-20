@@ -1,13 +1,16 @@
+include("required.jl")
 
-# convert "string" to "integer"
-# edgelist_T.PredTSN = parse.(Int64, edgelist_T.PredTSN)
-# edgelist_T.PreyTSN = parse.(Int64, edgelist_T.PreyTSN)
+transect
 
 #create vertices
 G = Graph()
 add_vertices!(G, 5289)
 
 #assign edges
+edges_t =
+
+id_dict = Dict(id => indexin(id, unique_ids) for id in edgelist_T.PredTSN)
+
 for i in 1:length(edgelist_T)
     for j in 1:nrow(edgelist_T)
         add_edge!(G, edgelist_T[i][j])
