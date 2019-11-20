@@ -46,10 +46,32 @@ edgelist_T
 check_uniques2 = [in(new_id2, old_ids2) for new_id2 in edgelist_T.PreyTSN[prey_indexes]]
 filter(isone, check_uniques2)
 
-####Marie testing
+edgelist_T = edgelist_T[:, [:newPredID, :newPreyID]]
 
+##Change PredTSN to newID starting from 1
+# Sort by ID
+sort!(edgelist_T, :PredTSN)
+# Get unique IDs
+unique_ids = unique(edgelist_T.PredTSN)
+# Create Dict where id => newid
+id_dict = Dict(id => indexin(id, unique_ids) for id in edgelist_T.PredTSN)
+# Add new ids in dataframe
+edgelist_T.newPredID = [id_dict[id] for id in edgelist_T.PredTSN]
+
+##Change PreyTSN to new ID starting from end of newPredID
+# sort by ID
+sort!(edgelist_T, :PreyTSN)
+#get unique IDs
+unique_ids_prey = unique(edgelist_T.PreyTSN)
+# Create new IDs
+newid_prey = collect(length(id_dict)+1:length(id_dict)+length(unique_ids_prey))
+# Create Dict
+id_dict2 = Dict(unique_ids_prey[i] => newid_prey[i] for i in 1:length(unique_ids_prey))
+# Add new ids in dataframe
+edgelist_T.newPreyID = [id_dict2[id] for id in edgelist_T.PreyTSN]
 
 edgelist_T
+
 
 # convert "string" to "integer"
 # edgelist_T.PredTSN = parse.(Int64, edgelist_T.PredTSN)
@@ -96,20 +118,6 @@ add_edge!(G, 5, 2)
 
 gplot(G, nodelabel=1:nv(G), edgelabel=1:ne(G))
 
-
-##test Change IDs to smaller increments starting at 1
-df_test = DataFrame(A = [93294, 93294, 70395, 92283, 69731], B = [10824, 11334, 11334, 11334, 12322])
-# Sort by ID
-sort!(df_test, :A)
-# Get unique IDs
-unique_ids = unique(df_test.A)
-# Create Dict where id => newid
-id_dict = Dict(id => indexin(id, unique_ids) for id in df_test.A)
-# Add new ids in dataframe
-df_test.newcol = [id_dict[id] for id in df_test.A]
-
-df_test
-
 ##Test add_edge function
 df_simple = DataFrame(C = [1,1,2,3], D = [3,4,4,5])
 #add new column with edge assignment ?? DOESNT WORK :(
@@ -125,3 +133,29 @@ end
 df_copy = copy(df_test)
 unique(df_test.A) .= 1:4
 df_test.A .= 1:nrow(df_copy)
+
+
+# Create df
+df_test = DataFrame(A = [93294, 93294, 70395, 92283, 69731], B = [10824, 11334, 11334, 11334, 12322])
+# Sort by ID
+sort!(df_test, :A)
+# Get unique IDs
+unique_ids = unique(df_test.A)
+# Create Dict where id => newid
+id_dict = Dict(id => indexin(id, unique_ids) for id in df_test.A)
+# Add new ids in dataframe
+df_test.newcol = [id_dict[id] for id in df_test.A]
+df_test
+
+## Repeat for B
+# Sort by ID
+sort!(df_test, :B)
+# Get unique IDs
+unique_ids_B = unique(df_test.B)
+# Create newids
+newids_B = collect(length(unique_ids)+1:length(unique_ids)+length(unique_ids_B))
+# Create Dict
+id_dict_B = Dict(unique_ids_B[i] => newids_B[i] for i in 1:length(unique_ids_B))
+# Add new ids in dataframe
+df_test.newcol2 = [id_dict_B[id] for id in df_test.B]
+df_test
