@@ -1,2 +1,3 @@
 # reseaux
-Modularity and Nestedness
+
+Identifying network modularity and nestedness at different spatial scales
