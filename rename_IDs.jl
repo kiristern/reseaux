@@ -28,4 +28,8 @@ edgelist_T.newPreyID = [id_dict2[id] for id in edgelist_T.PreyTSN]
 
 transect = edgelist_T[:, [:newPredID, :newPreyID]]
 
-transect.newPredID = parse.(Int64, transect.newPredID)
+#sort
+sort!(transect, :newPredID)
+
+#get unique values
+unique!(transect)
