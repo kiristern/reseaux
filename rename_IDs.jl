@@ -5,8 +5,10 @@ include("required.jl")
 sort!(edgelist_T, :PredTSN)
 # Get unique IDs
 unique_ids = unique(edgelist_T.PredTSN)
+#create new IDs
+newid_pred = collect(1:length(unique_ids))
 # Create Dict where id => newid
-id_dict = Dict(id => indexin(id, unique_ids) for id in edgelist_T.PredTSN)
+id_dict = Dict(unique_ids[i] => newid_pred[i] for i in 1:length(unique_ids))
 # Add new ids in dataframe
 edgelist_T.newPredID = [id_dict[id] for id in edgelist_T.PredTSN]
 
@@ -25,3 +27,5 @@ id_dict2 = Dict(unique_ids_prey[i] => newid_prey[i] for i in 1:length(unique_ids
 edgelist_T.newPreyID = [id_dict2[id] for id in edgelist_T.PreyTSN]
 
 transect = edgelist_T[:, [:newPredID, :newPreyID]]
+
+transect.newPredID = parse.(Int64, transect.newPredID)
