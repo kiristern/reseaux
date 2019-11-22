@@ -1,7 +1,7 @@
 include("required.jl")
 
 #import data
-df = CSV.read("/Users/kiristern/Desktop/BIO6037/devoir2/data/WoodEtal_Append1_v2.csv")
+df = CSV.read("WoodEtal_Append1_v2.csv")
 
 # Separate based on WebScale
 scale = [df[df.WebScale .== u,:] for u in unique(df.WebScale)]
