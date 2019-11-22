@@ -14,24 +14,33 @@ end
 #assign names for rows
     ##matrix extends past desired cols?.... keeps updating to original M without replacing old values
 for x in 2:length(unique(transect.newPreyID))+1
-    M[1,x] = unique(transect.newPreyID)[x-1]
+    M[1,x] = unique(sort!(transect.newPreyID))[x-1]
 end
 
 # Create Adjacency Matrix
-for a in 1:unique(transect.newPredID)
-    for z in 1:nrow(transect)
-        if transect[z,1] == M[a,1]
-            for b in 1:unique(transect.newPreyID)
-                for c in 1:nrow(transect)
-                    if transect[c,1] == M[1,b]
-                        M[a,b] = 1
-                    else continue
-                    end
-                end
-            end
+# for a in 1:unique(transect.newPredID)
+#     for z in 1:nrow(transect)
+#         if transect[z,1] == M[a,1]
+#             for b in 1:unique(transect.newPreyID)
+#                 for c in 1:nrow(transect)
+#                     if transect[c,1] == M[1,b]
+#                         M[a,b] = 1
+#                     else continue
+#                     end
+#                 end
+#             end
+#         end
+#     end
+# end
+
+for i in 1:length(transect.newPredID)
+    for j in 1:length(transect.newPredID)
+        if transect[i] == M[1,j]
+            M[i,j] = 1
         end
     end
 end
+M
 
 #directed graph
 mdg = MetaDiGraph(transect, :newPredID, :newPreyID)
@@ -50,7 +59,6 @@ for e in edges(g)
     m += 1
 end
 @assert m == ne(g)
-
 
 
 #assign edges
