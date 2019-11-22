@@ -17,7 +17,6 @@ for x in 2:length(unique(transect.newPreyID))+1
     M[1,x] = unique(sort!(transect.newPreyID))[x-1]
 end
 
-# Create Adjacency Matrix
 # for a in 1:unique(transect.newPredID)
 #     for z in 1:nrow(transect)
 #         if transect[z,1] == M[a,1]
@@ -33,12 +32,10 @@ end
 #     end
 # end
 
-for i in 1:length(transect.newPredID)
-    for j in 1:length(transect.newPredID)
-        if transect[i] == M[1,j]
-            M[i,j] = 1
-        end
-    end
+# Fill adjacency matrix with ones where there are interactions
+pred_len = length(unique(transect.newPredID))
+for i in 1:pred_len
+    M[i + 1, transect[i, 2] - pred_len  + 1] = 1
 end
 M
 
@@ -46,6 +43,20 @@ M
 mdg = MetaDiGraph(transect, :newPredID, :newPreyID)
 
 
+# # Test to make sure the adjacency matrix is correctly filled
+# transectTest = [[1,6],[2,7], [3,8], [4,9],[5, 10]]
+# MTest = zeros(Int16, 6, 6)
+# for y in 2:6
+#     MTest[y,1] = transectTest[y-1][1]
+# end
+#
+# for x in 2:6
+#     MTest[1,x] = transectTest[x-1][2]
+# end
+#
+# for i in 1:5
+#     MTest[i + 1, transectTest[i][2] - 5 + 1] = 1
+# end
 
 #create vertices
 G = ()
