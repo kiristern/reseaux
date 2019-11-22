@@ -4,18 +4,20 @@ transect
 
 ##Create Adjacency matrix
 #create matrix of zeros with n = colPred, m = colPrey
-M = zeros(Int8, length(unique(transect.newPredID))+1, length(unique(transect.newPreyID))+1)
+M = zeros(Int16, length(unique(transect.newPredID))+1, length(unique(transect.newPreyID))+1)
 #assign names for cols
     ##doesn't start at 1 in second row....
-for y in 2:length(unique(transect.newPredID))
-    M[y,1] = unique(transect.newPredID)[y]
+for y in 2:length(unique(transect.newPredID))+1
+    M[y,1] = unique(transect.newPredID)[y-1]
 end
+
 #assign names for rows
     ##matrix extends past desired cols?.... keeps updating to original M without replacing old values
-for x in 2:length(unique(transect.newPreyID))
-    M[1,x] = unique(transect.newPreyID)[x]
+for x in 2:length(unique(transect.newPreyID))+1
+    M[1,x] = unique(transect.newPreyID)[x-1]
 end
-#Create Adjacency Matrix
+
+# Create Adjacency Matrix
 for a in 1:unique(transect.newPredID)
     for z in 1:nrow(transect)
         if transect[z,1] == M[a,1]
