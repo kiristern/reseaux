@@ -6,10 +6,12 @@ transect
 #create matrix of zeros with n = colPred, m = colPrey
 M = zeros(Int8, length(unique(transect.newPredID))+1, length(unique(transect.newPreyID))+1)
 #assign names for cols
-for y in 1:length(unique(transect.newPredID))
+    ##doesn't start at 1 in second row....
+for y in 2:length(unique(transect.newPredID))
     M[y,1] = unique(transect.newPredID)[y]
 end
 #assign names for rows
+    ##matrix extends past desired cols?.... keeps updating to original M without replacing old values
 for x in 2:length(unique(transect.newPreyID))
     M[1,x] = unique(transect.newPreyID)[x]
 end
