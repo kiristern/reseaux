@@ -6,31 +6,14 @@ transect
 #create matrix of zeros with n = colPred, m = colPrey
 M = zeros(Int16, length(unique(transect.newPredID))+1, length(unique(transect.newPreyID))+1)
 #assign names for cols
-    ##doesn't start at 1 in second row....
 for y in 2:length(unique(transect.newPredID))+1
     M[y,1] = unique(transect.newPredID)[y-1]
 end
 
 #assign names for rows
-    ##matrix extends past desired cols?.... keeps updating to original M without replacing old values
 for x in 2:length(unique(transect.newPreyID))+1
     M[1,x] = unique(sort!(transect.newPreyID))[x-1]
 end
-
-# for a in 1:unique(transect.newPredID)
-#     for z in 1:nrow(transect)
-#         if transect[z,1] == M[a,1]
-#             for b in 1:unique(transect.newPreyID)
-#                 for c in 1:nrow(transect)
-#                     if transect[c,1] == M[1,b]
-#                         M[a,b] = 1
-#                     else continue
-#                     end
-#                 end
-#             end
-#         end
-#     end
-# end
 
 # Fill adjacency matrix with ones where there are interactions
 u_pred_len = length(unique(transect.newPredID))

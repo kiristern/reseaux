@@ -74,12 +74,10 @@ function adjacencyMatrix(keys)
     #create matrix of zeros with n = colPred, m = colPrey
     M = zeros(Int16, length(unique(keys.newPredID))+1, length(unique(keys.newPreyID))+1)
     #assign names for cols
-    ##doesn't start at 1 in second row....
     for y in 2:length(unique(keys.newPredID))+1
         M[y,1] = unique(keys.newPredID)[y-1]
     end
     #assign names for rows
-    ##matrix extends past desired cols?.... keeps updating to original M without replacing old values
     for x in 2:length(unique(keys.newPreyID))+1
         M[1,x] = unique(sort!(keys.newPreyID))[x-1]
     end
