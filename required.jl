@@ -4,3 +4,4 @@ using DataFramesMeta
 using LightGraphs
 using GraphPlot
 using GraphDataFrameBridge
+using EcologicalNetworks
