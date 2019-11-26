@@ -17,22 +17,22 @@ keys_L = renameIDs(edgelist_L)
 keys_S = renameIDs(edgelist_S)
 
 # Compute adjacency matrix
-M_T = adjacencyMatrix(keys_T)
-M_Q = adjacencyMatrix(keys_Q)
+#M_T = adjacencyMatrix(keys_T)
+#M_Q = adjacencyMatrix(keys_Q)
 M_A = adjacencyMatrix(keys_A)
 M_L = adjacencyMatrix(keys_L)
 M_S = adjacencyMatrix(keys_S)
 
 # Compute LP/BRIM
-Q_T, Qr_T, B_T = computeModularity(M_T)
-Q_Q, Qr_Q, B_Q = computeModularity(M_Q)
+#Q_T, Qr_T, B_T = computeModularity(M_T)
+#Q_Q, Qr_Q, B_Q = computeModularity(M_Q)
 Q_A, Qr_A, B_A = computeModularity(M_A)
 Q_L, Qr_L, B_L = computeModularity(M_L)
 Q_S, Qr_S, B_S = computeModularity(M_S)
 
 # Compute NODF
-NODF_T = computeNestedness(B_T)
-NODF_Q = computeNestedness(B_Q)
+#NODF_T = computeNestedness(B_T)
+#NODF_Q = computeNestedness(B_Q)
 NODF_A = computeNestedness(B_A)
 NODF_L = computeNestedness(B_L)
 NODF_S = computeNestedness(B_S)

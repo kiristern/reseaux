@@ -5,6 +5,7 @@ using LightGraphs
 using GraphPlot
 using GraphDataFrameBridge
 using EcologicalNetworks
+using Distributions
 
 function load_data()
     df = CSV.read("WoodEtal_Append1_v2.csv")
