@@ -23,10 +23,6 @@ for i in 1:pred_len
 end
 M
 
-#directed graph
-mdg = MetaDiGraph(transect, :newPredID, :newPreyID)
-
-
 # # Test to make sure the adjacency matrix is correctly filled
 # transectTest = [[1,6],[2,7], [3,8], [4,9],[5, 10]]
 # MTest = zeros(Int16, 6, 6)
@@ -41,57 +37,3 @@ mdg = MetaDiGraph(transect, :newPredID, :newPreyID)
 # for i in 1:5
 #     MTest[i + 1, transectTest[i][2] - 5 + 1] = 1
 # end
-
-#create vertices
-G = ()
-add_vertices!(G, 524)
-
-# create an empty undirected graph
-g = Graph()
-# iterate over the edges
-m = 0
-for e in edges(g)
-    m += 1
-end
-@assert m == ne(g)
-
-
-#assign edges
-edge_t = add_edge!(i => i for i in transect)
-
-for i in 1:length(transect)
-    for j in 1:nrow(transect)
-        add_edge!(G, transect[i][j])
-    end
-end
-
-
-#plot
-gplot(G, nodelabel=1:nv(G), edgelabel=1:ne(G))
-
-
-
-# create adjency matrix from edge list
-
-
-# graph Adjacency matrix
-Graph(transect)
-
-
-
-##Test add_edge function
-df_simple = DataFrame(C = [1,1,2,3], D = [3,4,4,5])
-#add new column with edge assignment ?? DOESNT WORK :(
-# df_simple[:E] = add_edge!(G, df_simple.C, df_simple.D)
-#try to assign edge between pairs of vertices
-
-for m in 1:length(df_simple)
-    for n in 1:nrow(df_simple)
-        add_edge!(G, df_simple[m][n])
-    end
-end
-
-#try to assign values 1:end for each unique ID
-df_copy = copy(df_test)
-unique(df_test.A) .= 1:4
-df_test.A .= 1:nrow(df_copy)
