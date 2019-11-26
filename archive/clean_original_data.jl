@@ -1,4 +1,4 @@
-include("required.jl")
+include("../required.jl")
 
 #import data
 df = CSV.read("WoodEtal_Append1_v2.csv")

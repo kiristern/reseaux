@@ -1,4 +1,4 @@
-include("required.jl")
+include("../required.jl")
 
 # Removing firts row and first column of M matrix to keep only values
 M_wrow = M[setdiff(1:end, 1), :]

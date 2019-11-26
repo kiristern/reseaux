@@ -1,4 +1,4 @@
-include("required.jl")
+include("../required.jl")
 
-# Calculate nestedness 
+# Calculate nestedness
 nodf(B)
