@@ -100,7 +100,7 @@ function computeModularity(M)
     # Convert ones and zeros in boolean
     M_bool = convert(Array{Bool}, M_wcol .== 1)
     # Convert matrix in bipartite network
-    B = BipartiteNetwork(M_bool)
+    B = UnipartiteNetwork(M_bool)
     # Calculate modularity
     modules = brim(lp(B)...)
     return Q(modules...), Qr(modules...), B
@@ -110,5 +110,5 @@ end
 # Function that cumputes the nestedness
 function computeNestedness(B)
     # Calculate nestedness
-    return nodf(B)
+    return ρ(B)
 end
