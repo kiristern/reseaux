@@ -5,8 +5,14 @@ df = CSV.read("WoodEtal_Append1_v2.csv")
 
 # Separate based on WebScale
 scale = [df[df.WebScale .== u,:] for u in unique(df.WebScale)]
+scale2 = [scale[5][scale[5].WebID .== j,:] for j in unique(scale[5].WebID)]
 
-scale[1]
+#notes which scale[x] = scale 
+#scale[1] = T
+#scale[2] = Q
+#scale[3] = A
+#scale[4] = L
+#scale[5] = S
 
 # select for edge interaction columns only
 edgelist_T = scale[1][:, [:PredTSN, :PreyTSN]]
