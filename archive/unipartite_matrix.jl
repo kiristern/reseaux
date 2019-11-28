@@ -20,7 +20,7 @@ M
 
 # Fill adjacency matrix with ones where there are interactions
 for i in 1:length(all_ids)
-    M[transect[i, 1], transect[i, 2]] = 1
+    M[transect[i, 1]+1, transect[i, 2]+1] = 1
 end
 M
 
