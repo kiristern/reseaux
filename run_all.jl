@@ -30,9 +30,9 @@ Q_A, Qr_A, B_A = computeModularity(M_A)
 Q_L, Qr_L, B_L = computeModularity(M_L)
 Q_S, Qr_S, B_S = computeModularity(M_S)
 
-# Compute NODF
-#NODF_T = computeNestedness(B_T)
-#NODF_Q = computeNestedness(B_Q)
-NODF_A = computeNestedness(B_A)
-NODF_L = computeNestedness(B_L)
-NODF_S = computeNestedness(B_S)
+# Compute spectral radius
+ρ_T = computeNestedness(B_T)
+ρ_Q = computeNestedness(B_Q)
+ρ_A = computeNestedness(B_A)
+ρ_L = computeNestedness(B_L)
+ρ_S = computeNestedness(B_S)
