@@ -70,27 +70,24 @@ end
 
 # Function that creates the adjacency matrix
 function adjacencyMatrix(keys)
+    all_ids = vcat(unique(keys.newPredID), unique(keys.newPreyID))
     ##Create Adjacency matrix
     #create matrix of zeros with n = colPred, m = colPrey
-    M = zeros(Int16, length(unique(keys.newPredID))+1, length(unique(keys.newPreyID))+1)
+    M = zeros(Int64, length(all_ids)+1, length(all_ids)+1)
     #assign names for cols
-    for y in 2:length(unique(keys.newPredID))+1
-        M[y,1] = unique(keys.newPredID)[y-1]
+    for y in 2:length(all_ids)+1
+        M[y,1] = all_ids[y-1]
     end
     #assign names for rows
-    for x in 2:length(unique(keys.newPreyID))+1
-        M[1,x] = unique(sort!(keys.newPreyID))[x-1]
+    for x in 2:length(all_ids)+1
+        M[1,x] = all_ids[x-1]
     end
     # Fill adjacency matrix with ones where there are interactions
-    u_pred_len = length(unique(keys.newPredID))
-    pred_len = length(keys.newPredID)
-    for i in 1:pred_len
+    for i in 1:length(all_ids)
         M[keys[i, 1] + 1, keys[i, 2] - u_pred_len  + 1] = 1
     end
-
     return M
 end
-
 
 # Function that computes the modularity
 function computeModularity(M)
