@@ -16,12 +16,11 @@ end
 for x in 2:length(all_ids)+1
     M[1,x] = all_ids[x-1]
 end
+M
 
 # Fill adjacency matrix with ones where there are interactions
-u_pred_len = length(unique(transect.newPredID))
-pred_len = length(transect.newPredID)
 for i in 1:length(all_ids)
-    M[transect[i, 1] + 1, transect[i, 2] - u_pred_len  + 1] = 1
+    M[transect[i, 1] + 1, transect[i, 2] + 1] = 1
 end
 M
 

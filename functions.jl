@@ -84,7 +84,7 @@ function adjacencyMatrix(keys)
     end
     # Fill adjacency matrix with ones where there are interactions
     for i in 1:length(all_ids)
-        M[keys[i, 1] + 1, keys[i, 2] - u_pred_len  + 1] = 1
+        M[keys[i, 1] + 1, keys[i, 2] + 1] = 1
     end
     return M
 end
