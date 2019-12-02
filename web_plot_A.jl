@@ -73,29 +73,29 @@ M
 # Convert ones and zeros in boolean
 M_bool = convert(Array{Bool}, M_wcol .== 1)
 
-##########################################
-#plot figure
-
-# Convert matrix in unipartite network
+# Convert matrix in Bipartite network
 B = BipartiteNetwork(M_bool)
+
+########################################
+#Plot
+
 I = initial(RandomInitialLayout, B)
 for step in 1:4000
   position!(ForceDirectedLayout(true, false, 2.5), I, B)
 end
-plot(I, B)
-scatter!(I, B)
+plot(I, B, title="Sanak Archipelago Interaction Web", lc=:lightblue)
+scatter!(I, B, mc=:lightgrey)
+png("figures/web_plot.png")
 
 
 #species with a degree larger than 3 in red:
-I = initial(RandomInitialLayout, B)
+I3 = initial(RandomInitialLayout, B)
 for step in 1:4000
-  position!(ForceDirectedLayout(2.5), I, B)
+  position!(ForceDirectedLayout(2.5), I3, B)
 end
-plot(I, B, aspectratio=1)
-scatter!(I, B)
+plot(I3, B, aspectratio=1)
+scatter!(I3, B)
 N = convert(AbstractUnipartiteNetwork, convert(BinaryNetwork, B))
 core3 = collect(keys(filter(p -> p.second ≥ 3, degree(N))))
-plot!(I, N[core3], lc=:red)
-scatter!(I, N[core3], mc=:red)
-
-# png("figures/undirected_bipartite_int_mat.png")
+plot!(I3, N[core3], lc=:red)
+scatter!(I3, N[core3], mc=:red)
