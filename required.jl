@@ -1,10 +1,8 @@
 using CSV
 using DataFrames
-using DataFramesMeta
-using LightGraphs
-using GraphPlot
-using GraphDataFrameBridge
+using Plots
 using EcologicalNetworks
+using EcologicalNetworksPlots
 using Distributions
 
 function load_data()
