@@ -83,7 +83,7 @@ I = initial(RandomInitialLayout, B)
 for step in 1:4000
   position!(ForceDirectedLayout(true, false, 2.5), I, B)
 end
-plot(I, B, title="Sanak Archipelago Interaction Web", lc=:lightblue)
+plot(I, B, title="Réseau d'intéractions de l'Archipel Sanak", lc=:lightblue)
 scatter!(I, B, mc=:lightgrey)
 png("figures/web_plot.png")
 
