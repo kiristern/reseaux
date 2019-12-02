@@ -93,5 +93,5 @@ B = BipartiteNetwork(M_bool)
 #################################################
 
 #create figure
-graph_A = heatmap(B, c=ColorGradient([:white, :black]), legend=false, title="Archipelago Interaction Matrix", xaxis="prey", yaxis="predators")
+graph_A = heatmap(B, c=ColorGradient([:white, :green]), legend=false, title="Archipelago Interaction Matrix", xaxis="PreyID", yaxis="PredatorID")
 png("figures/undirected_unipartite_int_mat.png")
